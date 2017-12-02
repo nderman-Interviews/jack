@@ -1,6 +1,7 @@
 import urllib.request, json
 import operator
 from enum import Enum
+from collections import defaultdict
 with urllib.request.urlopen("https://s3-eu-west-1.amazonaws.com/yoco-testing/tests.json") as url:
     data = json.loads(url.read().decode())
 
@@ -26,8 +27,8 @@ def checkFaceCard(cardValue):
 
 def sortCards(hand):
 	cardlist = {}
-	for idx, card in enumerate(hand):
-		cardlist[card[-1:]] = checkFaceCard(card[0:-1])
+	for idx,card in enumerate(hand):
+		cardlist[idx] = checkFaceCard(card[0:-1])
 	cardListSorted = sorted(cardlist.items(), key=operator.itemgetter(1), reverse = True)
 	return cardListSorted
 
@@ -61,10 +62,10 @@ def compareHands(playerAHand, playerBHand):
 			return 1
 		if(playerAHand[i][1] < playerBHand[i][1]): # if b card is higher b wins
 			return 0
-		if(Suit[playerAHand[i][0]].value > Suit[playerBHand[i][0]].value):
-			return 1
-		else:
-		  	return 0
+		# if(Suit[playerAHand[i][0]].value > Suit[playerBHand[i][0]].value):
+		# 	return 1
+		# else:
+		#   	return 0
 
 # loop through json results
 for result in data:
