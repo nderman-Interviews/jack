@@ -26,10 +26,13 @@ def checkFaceCard(cardValue):
 		return int(cardValue)
 
 def sortCards(hand):
-	cardlist = {}
+	cardlist = list()
+	suitlist = list()
 	for idx,card in enumerate(hand):
-		cardlist[idx] = checkFaceCard(card[0:-1])
-	cardListSorted = sorted(cardlist.items(), key=operator.itemgetter(1), reverse = True)
+		cardlist.append(checkFaceCard(card[0:-1]))
+		suitlist.append(card[-1:])
+	cardListSorted = sorted(zip(cardlist,suitlist), reverse = True)
+	# print(cardListSorted)
 	return cardListSorted
 
 
@@ -38,10 +41,10 @@ def compareHands(playerAHand, playerBHand):
 	sumA = 0
 	sumB = 0
 
-	for card in playerAHand:
-		sumA = sumA + card[1]
-	for card in playerBHand:
-		sumB = sumB + card[1]
+	for card,suit in playerAHand:
+		sumA = sumA + card
+	for card, suit in playerBHand:
+		sumB = sumB + card
 
 	if sumA > 21: #if A greater than 21 A loses
 		return 0
@@ -59,14 +62,14 @@ def compareHands(playerAHand, playerBHand):
 
 	n = min(len(playerAHand),len(playerBHand))
 	for i in range(n):
-		if(playerAHand[i][1] > playerBHand[i][1]): #if a card is higher a wins
+		if(playerAHand[i][0] > playerBHand[i][0]): #if a card is higher a wins
 			return 1
-		if(playerAHand[i][1] < playerBHand[i][1]): # if b card is higher b wins
+		if(playerAHand[i][0] < playerBHand[i][0]): # if b card is higher b wins
 			return 0
-		# if(Suit[playerAHand[i][0]].value > Suit[playerBHand[i][0]].value):
-		# 	return 1
-		# else:
-		#   	return 0
+		if(Suit[playerAHand[i][1]].value > Suit[playerBHand[i][1]].value):
+			return 1
+		else:
+		  	return 0
 
 # loop through json results
 for result in data:
@@ -77,10 +80,10 @@ for result in data:
 		pass
 	else:
 		print ('Incorrect')
-		# print(compareHands(playerAHand, playerBHand))
-		# print (result)
-		# print(playerAHand)
-		# print(playerBHand)
+		print(compareHands(playerAHand, playerBHand))
+		print (result)
+		print(playerAHand)
+		print(playerBHand)
 
 
 
