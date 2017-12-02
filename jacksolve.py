@@ -20,12 +20,18 @@ def sortCards(hand):
 	cardlist = {}
 	for idx, card in enumerate(hand):
 		cardlist[card[-1:]] = checkFaceCard(card[0:-1])
-		cardListSorted = sorted(cardlist.items(), key=operator.itemgetter(1), reverse = True)
-		return cardListSorted
+	cardListSorted = sorted(cardlist.items(), key=operator.itemgetter(1), reverse = True)
+	return cardListSorted
+
+def compareHands(playerAHand, playerBHand):
+	print(playerAHand)
+	print(playerBHand)
+	print('****')
 
 
 # loop through json results
 for result in data:
 	for key in result:
 		playerAHand = sortCards(result['playerA'])
-		playerBhand = sortCards(result['playerB'])
+		playerBHand = sortCards(result['playerB'])
+		compareHands(playerAHand,playerBHand)
