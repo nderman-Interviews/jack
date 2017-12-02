@@ -1,10 +1,18 @@
 import urllib.request, json
 import operator
+from enum import Enum
 with urllib.request.urlopen("https://s3-eu-west-1.amazonaws.com/yoco-testing/tests.json") as url:
     data = json.loads(url.read().decode())
 
+class Suit(Enum):
+     S = 4
+     H = 3
+     C = 2
+     D = 1
+
 
 tens = {'J','Q','K'}
+
 
 # print(data)
 
@@ -53,17 +61,25 @@ def compareHands(playerAHand, playerBHand):
 			return 1
 		if(playerAHand[i][1] < playerBHand[i][1]): # if b card is higher b wins
 			return 0
-
-	#finally compare suits
-	print(playerAHand)
-	print(playerBHand)
-	print('****')
+		if(Suit[playerAHand[i][0]].value > Suit[playerBHand[i][0]].value):
+			return 1
+		else:
+		  	return 0
 
 # loop through json results
 for result in data:
 	playerAHand = sortCards(result['playerA'])
 	playerBHand = sortCards(result['playerB'])
-	compareHands(playerAHand, playerBHand)
+	if compareHands(playerAHand, playerBHand) == result['playerAWins']:
+		# print('Correct')
+		pass
+	else:
+		print(compareHands(playerAHand, playerBHand))
+		print (result)
+		print(playerAHand)
+		print(playerBHand)
+		print('*****')
+
 
 
 
