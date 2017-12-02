@@ -24,14 +24,14 @@ def sortCards(hand):
 	return cardListSorted
 
 def compareHands(playerAHand, playerBHand):
-	print(playerAHand)
-	print(playerBHand)
-	print('****')
+	if (min(len(playerAHand),len(playerBHand))) == 1:
+		print(playerAHand)
+		print(playerBHand)
+		print('****')
 
 
 # loop through json results
 for result in data:
-	for key in result:
-		playerAHand = sortCards(result['playerA'])
-		playerBHand = sortCards(result['playerB'])
-		compareHands(playerAHand,playerBHand)
+	playerAHand = sortCards(result['playerA'])
+	playerBHand = sortCards(result['playerB'])
+	compareHands(playerAHand,playerBHand)
