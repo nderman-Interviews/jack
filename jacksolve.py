@@ -32,6 +32,7 @@ def sortCards(hand):
 	cardListSorted = sorted(cardlist.items(), key=operator.itemgetter(1), reverse = True)
 	return cardListSorted
 
+
 def compareHands(playerAHand, playerBHand):
 
 	sumA = 0
@@ -72,14 +73,15 @@ for result in data:
 	playerAHand = sortCards(result['playerA'])
 	playerBHand = sortCards(result['playerB'])
 	if compareHands(playerAHand, playerBHand) == result['playerAWins']:
-		# print('Correct')
+		print('Correct')
 		pass
 	else:
-		print(compareHands(playerAHand, playerBHand))
-		print (result)
-		print(playerAHand)
-		print(playerBHand)
-		print('*****')
+		print ('Incorrect')
+		# print(compareHands(playerAHand, playerBHand))
+		# print (result)
+		# print(playerAHand)
+		# print(playerBHand)
+
 
 
 
